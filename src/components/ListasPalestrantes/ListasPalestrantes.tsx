@@ -13,7 +13,7 @@ import BotaoDelete from '../BotaoDelete/BotaoDelete'
 import BotaoRead from '../BotaoRead/BotaoRead'
 import BotaoUpdate from '../BotaoUpdate/BotaoUpdate'
 
-export default function Listas(){
+export default function ListasPalestrantes(){
     return(
         <>
         <TableContainer>
@@ -21,30 +21,20 @@ export default function Listas(){
                 <Thead>
                 <Tr>
                     <Th>Id</Th>
-                    <Th>NOME DO EVENTO</Th>
-                    <Th>DATA</Th>
-                    <Th>INICIO</Th>
-                    {/* <Th>Tempo de Finalização</Th> */}
-                    <Th>Palestrantes</Th>
-                    <Th>Participantes</Th>
-                    {/*<Th>Descrição</Th>
-                     <Th>Observação</Th>
-                    <Th>Qtd de Arrecadação</Th> */}
-                    <Th>Tipo</Th>
+                    <Th>NOME DO PALESTRANTE</Th>
+                    <Th>EMAIL</Th>
+                    <Th>TELEFONE</Th>
                     <Th>Ações</Th>
                 </Tr>
                 </Thead>
                 <Tbody>
                 <Tr>
                     <Td>1</Td>
-                    <Td>Curso de Jogos Digitais</Td>
-                    <Td>29/10/2023</Td>
-                    <Td>14:00</Td>
-                    <Td>Nicolas Petruci, Lucas Molitor</Td>
-                    <Td>30</Td>
-                    <Td>Formação de Inovadores</Td>
+                    <Td>Nicolas</Td>
+                    <Td>nicolaspetrucipenga@gmail.com</Td>
+                    <Td>(18)996993141</Td>
                     <Td>
-                        <Flex w='100%' justifyContent='space-around'>
+                        <Flex w='75%' justifyContent='space-around'>
 
                         <BotaoRead />
                             
@@ -58,13 +48,10 @@ export default function Listas(){
                 </Tbody>
                 <Tfoot>
                 <Tr>
-                    <Th>ID</Th>
-                    <Th>NOME DO EVENTO</Th>
-                    <Th >DATA</Th>
-                    <Th>INICIO</Th>
-                    <Th>Palestrantes</Th>
-                    <Th>Participantes</Th>
-                    <Th>Tipo</Th>
+                <Th>Id</Th>
+                    <Th>NOME DO PALESTRANTE</Th>
+                    <Th>EMAIL</Th>
+                    <Th>TELEFONE</Th>
                     <Th>Ações</Th>
                 </Tr>
                 </Tfoot>
