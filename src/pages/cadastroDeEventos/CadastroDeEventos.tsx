@@ -1,12 +1,11 @@
-import { Flex, Box, FormControl, Input, FormLabel, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Button } from '@chakra-ui/react'
+import { Flex, Box, FormControl, Input, FormLabel, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Button, Select } from '@chakra-ui/react'
+import BotaoCadastro from '../../components/BotaoCadastro/BotaoCadastro'
 
-
-export default function CadastroDeEventos() {
+export default function Cadastro() {
     return (
         <Flex w='100%' h='80vh' alignItems='center' justifyContent='center' mt='5vh' mb='5vh'>
             <Box boxShadow='base' bg='white' w='75%' border='4px solid' borderColor='blackAlpha.100' rounded='md' shadow='dark-lg' >
                 <Flex w='100%' h='65vh' flexDir='column'>
-                    {/* Linha de Cima */}
                     <Flex w='100%' marginTop='5vh' justifyContent='space-around'>
                     <FormControl w='40%' isRequired>
                         <FormLabel>Nome do Evento</FormLabel>
@@ -14,7 +13,10 @@ export default function CadastroDeEventos() {
                     </FormControl>
 
                     <FormControl w='30%' isRequired>
-                        <FormLabel>Palestrante</FormLabel>
+                        <Flex flexDir='row'>
+                            <FormLabel>Palestrante</FormLabel>
+                            <BotaoCadastro />
+                        </Flex>
                         <Input type='text' />
                     </FormControl>
                     </Flex>
@@ -68,9 +70,18 @@ export default function CadastroDeEventos() {
                     </Flex>
 
                     <Flex w='100%' marginTop='3vh' justifyContent='space-around'>
-                    <FormControl w='85%' isRequired>
+                    <FormControl w='40%' isRequired>
                         <FormLabel>Descrição</FormLabel>
                         <Input type='text' />
+                    </FormControl>
+
+                    <FormControl w='30%' isRequired>
+                        <FormLabel>Tipo do Evento</FormLabel>
+                        <Select placeholder='Selecione uma Opção'>
+                        <option value='option1'>Formação de Inovadores</option>
+                        <option value='option2'>Cursos</option>
+                        <option value='option3'>Hackathon</option>
+                        </Select>
                     </FormControl>
                     </Flex>
                 

@@ -22,12 +22,6 @@ export default function Navbar(props: Props) {
                             <Text> Cadastro de Eventos </Text>
                         </Link>
                     </Flex>
-                    {/*Cadastro de Palestrantes */}
-                    <Flex>
-                        <Link href='/cPalestrantes'>
-                            <Text> Cadastro de Palestrantes </Text>
-                        </Link>
-                    </Flex>
                     {/*Lista de Eventos */}
                     <Flex>
                         <Link href='/lEventos'>
