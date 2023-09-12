@@ -1,5 +1,31 @@
-import { Flex, Box, FormControl, Input, FormLabel, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Button, Select } from '@chakra-ui/react'
+import { Flex, Box, FormControl, Input, FormLabel, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Button } from '@chakra-ui/react'
 import BotaoCadastro from '../../components/BotaoCadastro/BotaoCadastro'
+import Select from 'react-select';
+
+
+export const opcoes = [
+    {
+        value: 'teste 1', label: 'Nicolas'
+    },
+    {
+        value: 'teste 2', label: 'Lucas'
+    },
+]
+
+const tipos = [
+    {
+        value: 'teste 1', label: 'FDI'
+    },
+    {
+        value: 'teste 2', label: 'Curso'
+    },
+    {
+        value: 'teste 3', label: 'Hackathon'
+    },
+]
+
+
+
 
 export default function Cadastro() {
     return (
@@ -17,7 +43,7 @@ export default function Cadastro() {
                             <FormLabel>Palestrante</FormLabel>
                             <BotaoCadastro />
                         </Flex>
-                        <Input type='text' />
+                        <Select placeholder='Palestrante Disponível' isMulti closeMenuOnSelect={false} options={opcoes} />
                     </FormControl>
                     </Flex>
 
@@ -77,11 +103,7 @@ export default function Cadastro() {
 
                     <FormControl w='30%' isRequired>
                         <FormLabel>Tipo do Evento</FormLabel>
-                        <Select placeholder='Selecione uma Opção'>
-                        <option value='option1'>Formação de Inovadores</option>
-                        <option value='option2'>Cursos</option>
-                        <option value='option3'>Hackathon</option>
-                        </Select>
+                        <Select placeholder='Selecione uma Opção' options={tipos} />
                     </FormControl>
                     </Flex>
                 
