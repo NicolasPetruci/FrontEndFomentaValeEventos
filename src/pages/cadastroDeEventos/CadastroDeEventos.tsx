@@ -59,7 +59,6 @@ export default function Cadastro() {
                         <Input type='time' />
                     </FormControl>
 
-
                     <FormControl w='20%' isRequired>
                         <FormLabel>Final</FormLabel>
                         <Input type='time' />

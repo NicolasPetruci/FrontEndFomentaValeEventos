@@ -11,7 +11,6 @@ import {
   } from '@chakra-ui/react'
 import BotaoDelete from '../BotaoDelete/BotaoDelete'
 import BotaoRead from '../BotaoRead/BotaoRead'
-import BotaoUpdate from '../BotaoUpdate/BotaoUpdate'
 
 export default function ListasPalestrantes(){
     return(
@@ -37,8 +36,6 @@ export default function ListasPalestrantes(){
                         <Flex w='75%' justifyContent='space-around'>
 
                         <BotaoRead />
-                            
-                        <BotaoUpdate />
 
                         <BotaoDelete />
                         </Flex>
