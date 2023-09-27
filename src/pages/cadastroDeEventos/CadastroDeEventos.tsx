@@ -3,31 +3,29 @@ import BotaoCadastro from '../../components/BotaoCadastro/BotaoCadastro'
 import Select from 'react-select';
 
 
-export const opcoes = [
-    {
-        value: 'teste 1', label: 'Nicolas'
-    },
-    {
-        value: 'teste 2', label: 'Lucas'
-    },
-]
-
-const tipos = [
-    {
-        value: 'teste 1', label: 'FDI'
-    },
-    {
-        value: 'teste 2', label: 'Curso'
-    },
-    {
-        value: 'teste 3', label: 'Hackathon'
-    },
-]
-
-
-
-
 export default function Cadastro() {
+
+    const palestrantes = [
+        {
+            value: 'teste 1', label: 'Nicolas'
+        },
+        {
+            value: 'teste 2', label: 'Lucas'
+        },
+    ]
+    
+    const tipos = [
+        {
+            value: 'teste 1', label: 'FDI'
+        },
+        {
+            value: 'teste 2', label: 'Curso'
+        },
+        {
+            value: 'teste 3', label: 'Hackathon'
+        },
+    ]
+
     return (
         <Flex w='100%' h='80vh' alignItems='center' justifyContent='center' mt='5vh' mb='5vh'>
             <Box boxShadow='base' bg='white' w='75%' border='4px solid' borderColor='blackAlpha.100' rounded='md' shadow='dark-lg' >
@@ -43,7 +41,7 @@ export default function Cadastro() {
                             <FormLabel>Palestrante</FormLabel>
                             <BotaoCadastro />
                         </Flex>
-                        <Select placeholder='Palestrante Disponível' isMulti closeMenuOnSelect={false} options={opcoes} />
+                        <Select placeholder='Palestrante Disponível' isMulti closeMenuOnSelect={false} options={palestrantes} />
                     </FormControl>
                     </Flex>
 

@@ -11,8 +11,31 @@ import {
   } from '@chakra-ui/react'
 import BotaoDelete from '../BotaoDelete/BotaoDelete'
 import BotaoRead from '../BotaoRead/BotaoRead'
+import Select from 'react-select'; 
+
 
 export default function Listas(){
+    const palestrantes = [
+        {
+            value: 'teste 1', label: 'Nicolas'
+        },
+        {
+            value: 'teste 2', label: 'Lucas'
+        },
+    ]
+    
+    const tipos = [
+        {
+            value: 'teste 1', label: 'FDI'
+        },
+        {
+            value: 'teste 2', label: 'Curso'
+        },
+        {
+            value: 'teste 3', label: 'Hackathon'
+        },
+    ]
+
     return(
         <>
         <TableContainer>
@@ -39,9 +62,13 @@ export default function Listas(){
                     <Td>Curso de Jogos Digitais</Td>
                     <Td>29/10/2023</Td>
                     <Td>14:00</Td>
-                    <Td>Nicolas Petruci, Lucas Molitor</Td>
+                    <Flex w='90%'>
+                        <Select defaultValue={[palestrantes[0], palestrantes[1]]}  isMulti closeMenuOnSelect={false} options={palestrantes} isDisabled />
+                    </Flex>
                     <Td>30</Td>
-                    <Td>Formação de Inovadores</Td>
+                    <Flex w='90%'>
+                        <Select defaultValue={[tipos[0]]} isMulti closeMenuOnSelect={false} options={tipos} isDisabled />
+                    </Flex>
                     <Td>
                         <Flex w='100%' justifyContent='space-between'>
 

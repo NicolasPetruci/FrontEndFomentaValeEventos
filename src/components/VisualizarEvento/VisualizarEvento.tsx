@@ -4,11 +4,33 @@ import {
     Flex,
   } from '@chakra-ui/react'
 
+  import Select from 'react-select'; 
+
 
 export default function VisualizarEventos(){
+    const palestrantes = [
+        {
+            value: 'teste 1', label: 'Nicolas'
+        },
+        {
+            value: 'teste 2', label: 'Lucas'
+        },
+    ]
+    
+    const tipos = [
+        {
+            value: 'teste 1', label: 'FDI'
+        },
+        {
+            value: 'teste 2', label: 'Curso'
+        },
+        {
+            value: 'teste 3', label: 'Hackathon'
+        },
+    ]
     return (
         <>
-                <Flex w='100%' flexDir='column'>
+                <Flex w='100%' flexDir='column' mb='10%'>
                 <FormLabel mt='25px'>ID</FormLabel>
                 <Input type='text' placeholder='1'></Input>
 
@@ -25,7 +47,7 @@ export default function VisualizarEventos(){
                 <Input type='text' placeholder='18:00'></Input>
 
                 <FormLabel mt='25px'> PALESTRANTES</FormLabel>
-                <Input type='text' placeholder='Nicolas Petruci, Lucas Molitor'></Input>
+                <Select defaultValue={[palestrantes[0], palestrantes[1]]}  isMulti closeMenuOnSelect={false} options={palestrantes} />
 
                 <FormLabel mt='25px'> PARTICIPANTES</FormLabel>
                 <Input type='text' placeholder='30'></Input>
@@ -37,7 +59,7 @@ export default function VisualizarEventos(){
                 <Input type='text' placeholder=''></Input>
 
                 <FormLabel mt='25px'> TIPO DO EVENTO</FormLabel>
-                <Input type='text' placeholder='Formação de Inovadores'></Input>
+                <Select defaultValue={[tipos[0]]}  closeMenuOnSelect={false} options={tipos} />
 
                 <FormLabel mt='25px'> ARRECADAÇÃO</FormLabel>
                 <Input type='text' placeholder='20'></Input>
