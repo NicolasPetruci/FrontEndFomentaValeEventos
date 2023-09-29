@@ -19,7 +19,7 @@ export default function BotaoRead() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef(null)
 
-    const [Listas] = window.location.pathname.split('/lPalestrantes');
+    const Listas = window.location.pathname.includes('/lEventos');
 
     return (
       <>

@@ -1,11 +1,33 @@
 import { AddIcon } from "@chakra-ui/icons"
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Stack, Box, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Select, Textarea, DrawerFooter, useDisclosure } from "@chakra-ui/react"
-import React from "react"
+import React, { useState } from "react"
 
+import { PalestranteData } from "../../interfaces/PalestranteData"
+import { createPalestrante } from "../../services/palestranteService"
 
 export default function BotaoCadastro() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef(null)
+
+    const [novoPalestrante, setNovoPalestrante] = useState<PalestranteData>({
+      nomePalestrante: "",
+      telefonePalestrante: "",
+      emailPalestrante: "",
+    })
+
+    const criarPalestrante = (event: any) => {
+      event.preventDefault()
+
+      createPalestrante(novoPalestrante)
+        .then(() => {
+          console.log('Palestrante criado com sucesso', novoPalestrante)
+        })
+        .catch((error) => {
+          console.log(novoPalestrante);
+          console.log('Erro ao criar palestrante', error);
+        })
+    }
+
   
     return (
       <>
@@ -33,6 +55,12 @@ export default function BotaoCadastro() {
                     ref={firstField}
                     id='username'
                     placeholder='Nome do Palestrante'
+                    onChange={(event) => {
+                      setNovoPalestrante({
+                        ...novoPalestrante,
+                        nomePalestrante: event.target.value,
+                      });
+                    }}
                   />
                 </Box>
   
@@ -43,6 +71,12 @@ export default function BotaoCadastro() {
                       type='email'
                       id='url'
                       placeholder='Email do Palestrante'
+                      onChange={(event) => {
+                        setNovoPalestrante({
+                          ...novoPalestrante,
+                          emailPalestrante: event.target.value,
+                        });
+                      }}
                     />
                     
                   </InputGroup>
@@ -52,7 +86,12 @@ export default function BotaoCadastro() {
   
                 <Box>
                   <FormLabel>Telefone</FormLabel>
-                  <Input type='tel' />
+                  <Input type='tel' onChange={(event) => {
+                      setNovoPalestrante({
+                        ...novoPalestrante,
+                        telefonePalestrante: event.target.value,
+                      });
+                    }}/>
                 </Box>
               </Stack>
             </DrawerBody>
@@ -61,7 +100,8 @@ export default function BotaoCadastro() {
               <Button colorScheme="red" mr={3} onClick={onClose}>
                 CANCELAR
               </Button>
-              <Button colorScheme='green'>CRIAR</Button>
+              <Button colorScheme='green' type="submit"
+            onClick={criarPalestrante}>CRIAR</Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>

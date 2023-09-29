@@ -8,12 +8,20 @@ import {
     useDisclosure,
     Button,
   } from '@chakra-ui/react'
-import React from 'react'
+import React,  { useState } from 'react'
+import { deletePalestrante, getAllPalestrante } from '../../services/palestranteService'
+import { PalestranteData } from '../../interfaces/PalestranteData'
 
 export default function BotaoDelete() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = React.useRef(null)
+
+  const [palestrante, setPalestrante] = useState<PalestranteData>;
   
+  const deletarPalestrante = async (idPalestrante: string) => {
+    await deletePalestrante(idPalestrante);
+  }
+
     return (
       <>
         <Button colorScheme='red' onClick={onOpen}>
@@ -39,7 +47,11 @@ export default function BotaoDelete() {
                 <Button ref={cancelRef} onClick={onClose}>
                   Cancelar
                 </Button>
-                <Button colorScheme='red' onClick={onClose} ml={3}>
+                <Button colorScheme='red' onClick={()=> {
+                  deletePalestrante(
+                    palestrante.idPalestrante!.toString()
+                  )
+                }} ml={3}>
                   Deletar
                 </Button>
               </AlertDialogFooter>
