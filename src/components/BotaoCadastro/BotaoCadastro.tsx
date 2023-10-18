@@ -26,6 +26,7 @@ export default function BotaoCadastro() {
           console.log(novoPalestrante);
           console.log('Erro ao criar palestrante', error);
         })
+        window.location.reload();
     }
 
   

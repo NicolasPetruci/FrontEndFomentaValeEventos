@@ -1,7 +1,7 @@
 
 
 export enum TipoEvento {
-    FORMACAO,
-    CURSO,
-    HACKATHON,
+    FORMACAO = 'Formacao',
+    CURSO = 'Curso',
+    HACKATHON = 'Hackathon',
 }

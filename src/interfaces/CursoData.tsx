@@ -3,15 +3,15 @@ import { TipoEvento } from "./TipoEvento";
 
 export interface CursoData {
 
-    idCurso: number;
+    idCurso?: number;
     nomeCurso: string;
-    dataCurso: string;
-    tempoInicio: null | string;
-    tempoFinalizacao: null | string;
-    palestrante: PalestranteData;
-    palestranteId: number;
+    dataCurso?: string;
+    tempoInicio?: string;
+    tempoFinalizacao?: string;
+    palestrante: PalestranteData[];
     participante: number;
     tipoEvento: TipoEvento;
+    descricaoCurso: string;
     observacao: string;
     arrecadacao: number;
 
