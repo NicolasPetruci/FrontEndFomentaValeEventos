@@ -17,25 +17,19 @@ import {
   DrawerBody,
   Drawer,
   DrawerFooter,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogBody,
-  AlertDialogFooter,
+  FormLabel,
+  Input,
 } from "@chakra-ui/react";
-import BotaoRead from "../BotaoRead/BotaoRead";
 
 import { PalestranteData } from "../../interfaces/PalestranteData";
 import {
   deletePalestrante,
   getAllPalestrante,
 } from "../../services/palestranteService";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-import VisualizarEventos from "../VisualizarEvento/VisualizarEvento";
-import VisualizarPalestrante from "../VisualizarPalestrante/VisualizarPalestrante";
 import React from "react";
+import VisualizarPalestrante from "../VisualizarPalestrante/VisualizarPalestrante";
 
 export default function ListasPalestrantes() {
   const btnRef = React.useRef(null);
@@ -47,26 +41,26 @@ export default function ListasPalestrantes() {
   const [palestranteSelecionado, setPalestranteSelecionado] =
     useState<PalestranteData | null>(null);
 
-  const abrirModalConsultar = (palestrante: PalestranteData) => {
-    setPalestranteSelecionado(palestrante);
-    onOpen();
-  };
+  // const abrirModalConsultar = (palestrante: PalestranteData) => {
+  //   setPalestranteSelecionado(palestrante);
+  //   onOpen();
+  // };
 
-  const atualizarPalestrante = (palestranteAtualizada: PalestranteData) => {
-    setPalestrante((cursosPrevias: any) => {
-      const cursosAtualizados = cursosPrevias.map(
-        (palestrante: PalestranteData) => {
-          if (
-            palestrante.idPalestrante === palestranteAtualizada.idPalestrante
-          ) {
-            return palestranteAtualizada;
-          }
-          return palestrante;
-        }
-      );
-      return cursosAtualizados;
-    });
-  };
+  // const atualizarPalestrante = (palestranteAtualizada: PalestranteData) => {
+  //   setPalestrante((cursosPrevias: any) => {
+  //     const cursosAtualizados = cursosPrevias.map(
+  //       (palestrante: PalestranteData) => {
+  //         if (
+  //           palestrante.idPalestrante === palestranteAtualizada.idPalestrante
+  //         ) {
+  //           return palestranteAtualizada;
+  //         }
+  //         return palestrante;
+  //       }
+  //     );
+  //     return cursosAtualizados;
+  //   });
+  // };
 
   useEffect(() => {
     async function buscarPalestrante() {
@@ -86,8 +80,6 @@ export default function ListasPalestrantes() {
     window.location.reload();
   };
 
-  const Listas = window.location.pathname.includes("/lEventos");
-
   return (
     <>
       <TableContainer>
@@ -102,7 +94,7 @@ export default function ListasPalestrantes() {
             </Tr>
           </Thead>
           <Tbody>
-            {palestrante.map((palestrante: PalestranteData, index: number) => (
+            {palestrante.map((palestrante: PalestranteData, index) => (
               <Tr key={index}>
                 <Td>{palestrante.idPalestrante}</Td>
                 <Td>{palestrante.nomePalestrante}</Td>
@@ -110,8 +102,8 @@ export default function ListasPalestrantes() {
                 <Td>{palestrante.emailPalestrante}</Td>
 
                 <Td>
-                  <Flex w="75%" justifyContent="space-around">
-                    {/* <Button ref={btnRef} colorScheme="blue" onClick={onOpen}>
+                  
+                    <Button ref={btnRef} colorScheme="blue" onClick={onOpen}>
                       R
                     </Button>
                     <Drawer
@@ -120,21 +112,37 @@ export default function ListasPalestrantes() {
                       placement="right"
                       onClose={onClose}
                       finalFocusRef={btnRef}
+                      key={index}
                     >
-                      <DrawerOverlay />
-                      <DrawerContent>
+                      
+                      <DrawerContent >
                         <DrawerCloseButton />
-
                         <DrawerHeader>Visualização</DrawerHeader>
                         <DrawerBody>
-                          {Listas ? (
-                            <VisualizarEventos />
-                          ) : (
-                            <VisualizarPalestrante />
-                          )}
+                          
+                            <FormLabel mt="25px">ID</FormLabel>
+                            <Input type="number" value={palestrante.idPalestrante}></Input>
+
+                            <FormLabel mt="25px">
+                              NOME DO PALESTRANTE
+                            </FormLabel>
+                            <Input type="text" value={palestrante.nomePalestrante}></Input>
+
+                            <FormLabel mt="25px">
+                              
+                              EMAIL DO PALESTRANTE
+                            </FormLabel>
+                            <Input type="email" value={palestrante.emailPalestrante}></Input>
+
+                            <FormLabel mt="25px">
+                              TELEFONE DO PALESTRANTE
+                            </FormLabel>
+                            <Input type="number" value={palestrante.telefonePalestrante}></Input>
+                          
                         </DrawerBody>
 
-                        <DrawerFooter>
+                        <DrawerFooter >
+                          <Flex  w="75%" justifyContent="space-around">
                           <Button
                             colorScheme="red"
                             variant="outline"
@@ -146,51 +154,24 @@ export default function ListasPalestrantes() {
                           <Button colorScheme="green" mr={3}>
                             Salvar
                           </Button>
+                          </Flex>
+                          
                         </DrawerFooter>
                       </DrawerContent>
-                    </Drawer> */}
+                    </Drawer>
 
                     {/* delete */}
-                    <Button colorScheme="red" onClick={onOpen}>
+                    <Button
+                      colorScheme="red"
+                      onClick={() => {
+                        deletarPalestrante(
+                          palestrante.idPalestrante!.toString()
+                        );
+                      }}
+                    >
                       D
                     </Button>
-
-                    <AlertDialog
-                      isOpen={isOpen}
-                      leastDestructiveRef={cancelRef}
-                      onClose={onClose}
-                    >
-                      <AlertDialogOverlay>
-                        <AlertDialogContent>
-                          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                            Deletando da Lista
-                          </AlertDialogHeader>
-
-                          <AlertDialogBody>
-                            Você tem certeza? Após apagar, não será possível
-                            reverter essa mudança.
-                          </AlertDialogBody>
-
-                          <AlertDialogFooter>
-                            <Button ref={cancelRef} onClick={onClose}>
-                              Cancelar
-                            </Button>
-                            <Button
-                              colorScheme="red"
-                              ml={3}
-                              onClick={() => {
-                                deletarPalestrante(
-                                  palestrante.idPalestrante!.toString()
-                                );
-                              }}
-                            >
-                              Deletar
-                            </Button>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialogOverlay>
-                    </AlertDialog>
-                  </Flex>
+                  
                 </Td>
               </Tr>
             ))}

@@ -6,11 +6,11 @@ export interface CursoData {
     idCurso?: number;
     nomeCurso: string;
     dataCurso?: string;
-    tempoInicio?: string;
-    tempoFinalizacao?: string;
+    tempoInicio?: null | string;
+    tempoFinalizacao?: null | string;
     palestrante: PalestranteData[];
     participante: number;
-    tipoEvento: TipoEvento;
+    tipoEvento?: TipoEvento;
     descricaoCurso: string;
     observacao: string;
     arrecadacao: number;

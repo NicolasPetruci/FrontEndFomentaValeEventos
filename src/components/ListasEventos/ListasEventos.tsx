@@ -1,104 +1,129 @@
 import {
-    Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableContainer,
-    Flex,
-  } from '@chakra-ui/react'
-import BotaoDelete from '../BotaoDelete/BotaoDelete'
-import BotaoRead from '../BotaoRead/BotaoRead'
-import Select from 'react-select'; 
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  useDisclosure,
+  Button,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { CursoData } from "../../interfaces/CursoData";
+import { deleteCurso, getAllCursos } from "../../services/eventoService";
+import { formatarData } from "../../helpers/funcoes";
+import React from "react";
 
+export default function ListasEventos() {
+  const cancelRef = React.useRef(null);
 
+  const [curso, setCurso] = useState<CursoData[]>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [cursoSelecionado, setCursoSelecionado] = useState<CursoData | null>(
+    null
+  );
 
+  //   const atualizarCurso = (cursoAtualizado: CursoData) => {
+  //     setCurso((cursoPrevias) => {
+  //       const cursosAtualizados = cursoPrevias.map((curso) => {
+  //         if (curso.idCurso === cursoAtualizado.idCurso) {
+  //           return cursoAtualizado;
+  //         }
+  //         return curso;
+  //       });
+  //       return cursosAtualizados;
+  //     });
+  //   };
 
+  useEffect(() => {
+    async function buscarCurso() {
+      try {
+        await getAllCursos().then((curso) => setCurso(curso));
+      } catch (error) {
+        console.error("Erro ao obter Cursos", error);
+      }
+    }
+    buscarCurso();
+  }, []);
 
-export default function ListasEventos(){
+  const deletarCurso = async (idCurso: string) => {
+    await deleteCurso(idCurso);
+    window.location.reload();
+  };
 
-
-    const palestrantes = [
-        {
-            value: 'teste 1', label: 'Nicolas'
-        },
-        {
-            value: 'teste 2', label: 'Lucas'
-        },
-    ]
-    
-    const tipos = [
-        {
-            value: 'teste 1', label: 'FDI'
-        },
-        {
-            value: 'teste 2', label: 'Curso'
-        },
-        {
-            value: 'teste 3', label: 'Hackathon'
-        },
-    ]
-
-    return(
-        <>
-        <TableContainer>
-            <Table size='sm' variant='striped' colorScheme='008177'>
-                <Thead>
-                <Tr>
-                    <Th>Id</Th>
-                    <Th>NOME DO EVENTO</Th>
-                    <Th>DATA</Th>
-                    <Th>INICIO</Th>
-                    {/* <Th>Tempo de Finalização</Th> */}
-                    <Th>Palestrantes</Th>
-                    <Th>Participantes</Th>
-                    {/*<Th>Descrição</Th>
+  return (
+    <>
+      <TableContainer>
+        <Table size="sm" variant="striped" colorScheme="008177">
+          <Thead>
+            <Tr>
+              <Th>Id</Th>
+              <Th>NOME DO EVENTO</Th>
+              <Th>INICIO</Th>
+              <Th>FIM</Th>
+              {/* <Th>Tempo de Finalização</Th> */}
+              <Th>Participantes</Th>
+              {/*<Th>Descrição</Th>
                      <Th>Observação</Th>
                     <Th>Qtd de Arrecadação</Th> */}
-                    <Th>Tipo</Th>
-                    <Th>Ações</Th>
-                </Tr>
-                </Thead>
-                <Tbody>
-                <Tr>
-                    <Td>1</Td>
-                    <Td>Curso de Jogos Digitais</Td>
-                    <Td>29/10/2023</Td>
-                    <Td>14:00</Td>
-                    <Flex w='90%'>
-                        <Select defaultValue={[palestrantes[0], palestrantes[1]]}  isMulti closeMenuOnSelect={false} options={palestrantes} isDisabled />
-                    </Flex>
-                    <Td>30</Td>
-                    <Flex w='90%'>
-                        <Select defaultValue={[tipos[0]]} isMulti closeMenuOnSelect={false} options={tipos} isDisabled />
-                    </Flex>
-                    <Td>
-                        <Flex w='100%' justifyContent='space-between'>
+              <Th>Ações</Th>
+            </Tr>
+          </Thead>
 
-                        <BotaoRead />
+          <Tbody>
+            {curso.map((curso, index) => (
+              <Tr key={index}>
+                <Td>{curso.idCurso}</Td>
+                <Td>{curso.nomeCurso}</Td>
+                <Td>{formatarData(curso.tempoInicio!.toLocaleString())}</Td>
+                <Td>
+                  {formatarData(curso.tempoFinalizacao!.toLocaleString())}
+                </Td>
+                <Td>{curso.participante}</Td>
+                <Td>
 
-                        <BotaoDelete />
-                        </Flex>
-                    </Td>
-                </Tr>
-                
-                </Tbody>
-                <Tfoot>
-                <Tr>
-                    <Th>ID</Th>
-                    <Th>NOME DO EVENTO</Th>
-                    <Th >DATA</Th>
-                    <Th>INICIO</Th>
-                    <Th>Palestrantes</Th>
-                    <Th>Participantes</Th>
-                    <Th>Tipo</Th>
-                    <Th>Ações</Th>
-                </Tr>
-                </Tfoot>
-            </Table>
-        </TableContainer>
-        </>
-    )
+                <Button
+                    colorScheme="blue"
+                    onClick={() => {
+                      deletarCurso(curso.idCurso!.toString());
+                    }}
+                  >
+                    R
+                  </Button>
+
+                  <Button
+                    colorScheme="red"
+                    onClick={() => {
+                      deletarCurso(curso.idCurso!.toString());
+                    }}
+                  >
+                    D
+                  </Button>
+                  
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th>ID</Th>
+              <Th>NOME DO EVENTO</Th>
+              <Th>INICIO</Th>
+              <Th>FIM</Th>
+              <Th>Participantes</Th>
+              <Th>Ações</Th>
+            </Tr>
+          </Tfoot>
+        </Table>
+      </TableContainer>
+    </>
+  );
 }

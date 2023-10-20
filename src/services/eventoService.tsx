@@ -9,20 +9,20 @@ export const createCurso = async (cursoData: CursoData) => {
 
 export const getAllCursos = async () => {
     const response = await api.get('/curso');
-    return response.data;
+    return await response.data;
 };
 
 export const getCurso = async (cursoId: string) => {
     const response = await api.get(`/curso/${cursoId}`);
-    return response.data;
+    return await response.data;
 };
 
-export const updateCurso = async (cursoId: string, updatedData: any) => {
+export const updateCurso = async (cursoId: string, updatedData: CursoData) => {
     const response = await api.patch(`/curso/${cursoId}`, updatedData);
-    return response.data;
+    return await response.data;
 }
 
 export const deleteCurso = async (cursoId: string) => {
     const response = await api.delete(`/curso/${cursoId}`);
-    return response.data;
+    return await response.data;
 }
