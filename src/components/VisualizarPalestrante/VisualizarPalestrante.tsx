@@ -44,7 +44,7 @@ export default function VisualizarPalestrante({
     try {
       if (palestrante) {
         const numeroPalestrante = palestrante.idPalestrante!.toString();
-        const { curso, ...palestranteSemCurso } = updatePalestranteData;
+        const { ...palestranteSemCurso } = updatePalestranteData;
         console.log(palestranteSemCurso);
 
         await updatePalestrante(numeroPalestrante, palestranteSemCurso);
