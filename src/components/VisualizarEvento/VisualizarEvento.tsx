@@ -8,26 +8,7 @@ import {
 
 
 export default function VisualizarEventos(){
-    const palestrantes = [
-        {
-            value: 'teste 1', label: 'Nicolas'
-        },
-        {
-            value: 'teste 2', label: 'Lucas'
-        },
-    ]
     
-    const tipos = [
-        {
-            value: 'teste 1', label: 'FDI'
-        },
-        {
-            value: 'teste 2', label: 'Curso'
-        },
-        {
-            value: 'teste 3', label: 'Hackathon'
-        },
-    ]
     return (
         <>
                 <Flex w='100%' flexDir='column' mb='10%'>
@@ -47,7 +28,7 @@ export default function VisualizarEventos(){
                 <Input type='text' placeholder='18:00'></Input>
 
                 <FormLabel mt='25px'> PALESTRANTES</FormLabel>
-                <Select defaultValue={[palestrantes[0], palestrantes[1]]}  isMulti closeMenuOnSelect={false} options={palestrantes} />
+                <Select defaultValue={}  isMulti closeMenuOnSelect={false} options={} />
 
                 <FormLabel mt='25px'> PARTICIPANTES</FormLabel>
                 <Input type='text' placeholder='30'></Input>

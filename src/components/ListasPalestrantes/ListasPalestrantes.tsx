@@ -41,26 +41,26 @@ export default function ListasPalestrantes() {
   const [palestranteSelecionado, setPalestranteSelecionado] =
     useState<PalestranteData | null>(null);
 
-  // const abrirModalConsultar = (palestrante: PalestranteData) => {
-  //   setPalestranteSelecionado(palestrante);
-  //   onOpen();
-  // };
+  const abrirDrawerConsultar = (palestrante: PalestranteData) => {
+    setPalestranteSelecionado(palestrante);
+    onOpen();
+  };
 
-  // const atualizarPalestrante = (palestranteAtualizada: PalestranteData) => {
-  //   setPalestrante((cursosPrevias: any) => {
-  //     const cursosAtualizados = cursosPrevias.map(
-  //       (palestrante: PalestranteData) => {
-  //         if (
-  //           palestrante.idPalestrante === palestranteAtualizada.idPalestrante
-  //         ) {
-  //           return palestranteAtualizada;
-  //         }
-  //         return palestrante;
-  //       }
-  //     );
-  //     return cursosAtualizados;
-  //   });
-  // };
+  const atualizarPalestrante = (palestranteAtualizada: PalestranteData) => {
+    setPalestrante((cursosPrevias: any) => {
+      const cursosAtualizados = cursosPrevias.map(
+        (palestrante: PalestranteData) => {
+          if (
+            palestrante.idPalestrante === palestranteAtualizada.idPalestrante
+          ) {
+            return palestranteAtualizada;
+          }
+          return palestrante;
+        }
+      );
+      return cursosAtualizados;
+    });
+  };
 
   useEffect(() => {
     async function buscarPalestrante() {
@@ -88,8 +88,8 @@ export default function ListasPalestrantes() {
             <Tr>
               <Th>Id</Th>
               <Th>NOME DO PALESTRANTE</Th>
-              <Th>EMAIL</Th>
               <Th>TELEFONE</Th>
+              <Th>EMAIL</Th>
               <Th>Ações</Th>
             </Tr>
           </Thead>
@@ -102,76 +102,37 @@ export default function ListasPalestrantes() {
                 <Td>{palestrante.emailPalestrante}</Td>
 
                 <Td>
-                  
-                    <Button ref={btnRef} colorScheme="blue" onClick={onOpen}>
-                      R
-                    </Button>
-                    <Drawer
-                      size="lg"
-                      isOpen={isOpen}
-                      placement="right"
-                      onClose={onClose}
-                      finalFocusRef={btnRef}
-                      key={index}
-                    >
-                      
-                      <DrawerContent >
-                        <DrawerCloseButton />
-                        <DrawerHeader>Visualização</DrawerHeader>
-                        <DrawerBody>
-                          
-                            <FormLabel mt="25px">ID</FormLabel>
-                            <Input type="number" value={palestrante.idPalestrante}></Input>
-
-                            <FormLabel mt="25px">
-                              NOME DO PALESTRANTE
-                            </FormLabel>
-                            <Input type="text" value={palestrante.nomePalestrante}></Input>
-
-                            <FormLabel mt="25px">
-                              
-                              EMAIL DO PALESTRANTE
-                            </FormLabel>
-                            <Input type="email" value={palestrante.emailPalestrante}></Input>
-
-                            <FormLabel mt="25px">
-                              TELEFONE DO PALESTRANTE
-                            </FormLabel>
-                            <Input type="number" value={palestrante.telefonePalestrante}></Input>
-                          
-                        </DrawerBody>
-
-                        <DrawerFooter >
-                          <Flex  w="75%" justifyContent="space-around">
-                          <Button
-                            colorScheme="red"
-                            variant="outline"
-                            mr={3}
-                            onClick={onClose}
-                          >
-                            Cancelar
-                          </Button>
-                          <Button colorScheme="green" mr={3}>
-                            Salvar
-                          </Button>
-                          </Flex>
-                          
-                        </DrawerFooter>
-                      </DrawerContent>
-                    </Drawer>
-
-                    {/* delete */}
-                    <Button
-                      colorScheme="red"
-                      onClick={() => {
-                        deletarPalestrante(
-                          palestrante.idPalestrante!.toString()
-                        );
-                      }}
-                    >
-                      D
-                    </Button>
-                  
+                  {/* delete */}
+                  <Button
+                  mr='5px'
+                    colorScheme="red"
+                    onClick={() => {
+                      deletarPalestrante(palestrante.idPalestrante!.toString());
+                    }}
+                  >
+                    D
+                  </Button>
+                  {/* Leitura */}
+                  <Button ref={btnRef} colorScheme="blue" onClick={() => abrirDrawerConsultar(palestrante)}>
+                    R
+                  </Button>
+                  <Drawer
+                    size="lg"
+                    isOpen={isOpen}
+                    placement="right"
+                    onClose={onClose}
+                    finalFocusRef={btnRef}
+                    key={index}
+                  >
+                    {palestranteSelecionado && (
+                      <VisualizarPalestrante
+                        isOpen={isOpen}
+                        palestrante={palestranteSelecionado}
+                        onClose={onClose}
+                        onUpdate={atualizarPalestrante}
+                      />
+                    )}
+                  </Drawer>
                 </Td>
               </Tr>
             ))}
@@ -180,8 +141,8 @@ export default function ListasPalestrantes() {
             <Tr>
               <Th>Id</Th>
               <Th>NOME DO PALESTRANTE</Th>
-              <Th>EMAIL</Th>
               <Th>TELEFONE</Th>
+              <Th>EMAIL</Th>
               <Th>Ações</Th>
             </Tr>
           </Tfoot>

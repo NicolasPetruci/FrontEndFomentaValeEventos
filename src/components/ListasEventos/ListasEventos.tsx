@@ -89,8 +89,8 @@ export default function ListasEventos() {
                 </Td>
                 <Td>{curso.participante}</Td>
                 <Td>
-
-                <Button
+                  <Button
+                    mr="5px"
                     colorScheme="blue"
                     onClick={() => {
                       deletarCurso(curso.idCurso!.toString());
@@ -107,7 +107,6 @@ export default function ListasEventos() {
                   >
                     D
                   </Button>
-                  
                 </Td>
               </Tr>
             ))}
