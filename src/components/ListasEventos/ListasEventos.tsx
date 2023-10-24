@@ -92,6 +92,7 @@ export default function ListasEventos() {
                 <Td>{curso.participante}</Td>
                 <Td>
                   <Button
+                  mr="5px"
                     colorScheme="red"
                     onClick={() => {
                       deletarCurso(curso.idCurso!.toString());
