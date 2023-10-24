@@ -15,7 +15,7 @@ export default function ListaDeEventos() {
         boxShadow="base"
         bg="white"
         h="100%"
-        w="55%"
+        w="60%"
         border="4px solid"
         borderColor="blackAlpha.100"
         rounded="md"

@@ -9,21 +9,18 @@ import {
   TableContainer,
   useDisclosure,
   Button,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogBody,
-  AlertDialogFooter,
+  Drawer,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { CursoData } from "../../interfaces/CursoData";
 import { deleteCurso, getAllCursos } from "../../services/eventoService";
 import { formatarData } from "../../helpers/funcoes";
 import React from "react";
+import VisualizarEventos from "../VisualizarEvento/VisualizarEvento";
 
 export default function ListasEventos() {
-  const cancelRef = React.useRef(null);
+  
+  const btnRef = React.useRef(null);
 
   const [curso, setCurso] = useState<CursoData[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,17 +28,22 @@ export default function ListasEventos() {
     null
   );
 
-  //   const atualizarCurso = (cursoAtualizado: CursoData) => {
-  //     setCurso((cursoPrevias) => {
-  //       const cursosAtualizados = cursoPrevias.map((curso) => {
-  //         if (curso.idCurso === cursoAtualizado.idCurso) {
-  //           return cursoAtualizado;
-  //         }
-  //         return curso;
-  //       });
-  //       return cursosAtualizados;
-  //     });
-  //   };
+  const abrirDrawerConsultar = (curso: CursoData) => {
+    setCursoSelecionado(curso);
+    onOpen();
+  };
+
+    const atualizarCurso = (cursoAtualizado: CursoData) => {
+      setCurso((cursoPrevias) => {
+        const cursosAtualizados = cursoPrevias.map((curso) => {
+          if (curso.idCurso === cursoAtualizado.idCurso) {
+            return cursoAtualizado;
+          }
+          return curso;
+        });
+        return cursosAtualizados;
+      });
+    };
 
   useEffect(() => {
     async function buscarCurso() {
@@ -90,16 +92,6 @@ export default function ListasEventos() {
                 <Td>{curso.participante}</Td>
                 <Td>
                   <Button
-                    mr="5px"
-                    colorScheme="blue"
-                    onClick={() => {
-                      deletarCurso(curso.idCurso!.toString());
-                    }}
-                  >
-                    R
-                  </Button>
-
-                  <Button
                     colorScheme="red"
                     onClick={() => {
                       deletarCurso(curso.idCurso!.toString());
@@ -107,6 +99,26 @@ export default function ListasEventos() {
                   >
                     D
                   </Button>
+                  <Button ref={btnRef} colorScheme="blue" onClick={() => abrirDrawerConsultar(curso)}>
+                    R
+                  </Button>
+                  <Drawer
+                    size="lg"
+                    isOpen={isOpen}
+                    placement="right"
+                    onClose={onClose}
+                    finalFocusRef={btnRef}
+                    key={index}
+                  >
+                    {cursoSelecionado && (
+                      <VisualizarEventos
+                        isOpen={isOpen}
+                        cursoD={cursoSelecionado}
+                        onClose={onClose}
+                        onUpdate={atualizarCurso}
+                      />
+                    )}
+                  </Drawer>
                 </Td>
               </Tr>
             ))}

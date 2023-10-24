@@ -7,18 +7,9 @@ import {
   Th,
   Td,
   TableContainer,
-  Flex,
   useDisclosure,
   Button,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerCloseButton,
-  DrawerBody,
   Drawer,
-  DrawerFooter,
-  FormLabel,
-  Input,
 } from "@chakra-ui/react";
 
 import { PalestranteData } from "../../interfaces/PalestranteData";
@@ -33,7 +24,6 @@ import VisualizarPalestrante from "../VisualizarPalestrante/VisualizarPalestrant
 
 export default function ListasPalestrantes() {
   const btnRef = React.useRef(null);
-  const cancelRef = React.useRef(null);
 
   const [palestrante, setPalestrante] = useState<PalestranteData[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -104,7 +94,7 @@ export default function ListasPalestrantes() {
                 <Td>
                   {/* delete */}
                   <Button
-                  mr='5px'
+                    mr="5px"
                     colorScheme="red"
                     onClick={() => {
                       deletarPalestrante(palestrante.idPalestrante!.toString());
@@ -113,7 +103,11 @@ export default function ListasPalestrantes() {
                     D
                   </Button>
                   {/* Leitura */}
-                  <Button ref={btnRef} colorScheme="blue" onClick={() => abrirDrawerConsultar(palestrante)}>
+                  <Button
+                    ref={btnRef}
+                    colorScheme="blue"
+                    onClick={() => abrirDrawerConsultar(palestrante)}
+                  >
                     R
                   </Button>
                   <Drawer
